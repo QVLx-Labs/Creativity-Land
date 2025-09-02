@@ -1,0 +1,720 @@
+/* =================================================================== */
+/*                    C R E A T I V I T Y . L A N D                    */
+/* =================================================================== */
+
+/* === GLOBAL VARIABLES (EUPHORIA) =================================== */
+:root{
+  --bg:#0a0612;
+  --panel:#0d0a19;
+  --muted:#17112a;
+
+  /* Accents (keep variable names the same so JS & components still use them) */
+  --acc:#ff5bd9;      /* electric magenta */
+  --acc2:#00f5ff;     /* neon cyan */
+
+  --ok:#22ff9a; 
+  --warn:#ffd056; 
+  --bad:#ff4d6d; 
+  --text:#f2f4ff; 
+  --text-dim:#bfc4ff;
+  --ring: rgba(255,91,217,.35);
+  --base-highlight:#FFF86B;
+
+  /* Extras for gradients/glow */
+  --grad-1:#6a00f4;
+  --grad-2:#ff5bd9;
+  --grad-3:#00f5ff;
+  --grad-4:#ffe156;
+  --panel-border:#261a4a;
+  --panel-glow:0 10px 40px rgba(145,74,255,.25);
+}
+
+/* === BASE =========================================================== */
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(255,91,217,.12), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(0,245,255,.10), transparent 60%),
+    linear-gradient(180deg,#0a0612 0%, #0b0a1a 50%, #0a0612 100%);
+  background-size:180% 180%;
+  animation:euphoricFlow 18s ease-in-out infinite;
+  color:var(--text);
+  font:500 15px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+  -webkit-tap-highlight-color: transparent;
+}
+@keyframes euphoricFlow{
+  0%{background-position:0% 0%}
+  50%{background-position:100% 60%}
+  100%{background-position:0% 0%}
+}
+a{color:var(--acc)}
+.hidden{display:none !important}
+
+/* === HEADER & TABS ================================================== */
+header{
+  display:flex;gap:14px;align-items:center;
+  padding:10px 12px;border-bottom:1px solid var(--panel-border);
+  background:
+    linear-gradient(180deg, rgba(106,0,244,.25), rgba(10,6,18,.6)),
+    linear-gradient(180deg, #120d22 0%, #0d0a19 100%);
+  position:sticky;top:0;z-index:10;
+  box-shadow:0 8px 30px rgba(106,0,244,.15);
+}
+.brand{display:flex;gap:10px;align-items:center}
+.logo{
+  width:34px;height:34px;border-radius:10px;
+  border:1px solid #2a1d52;
+  background:linear-gradient(135deg, var(--grad-2), var(--grad-3));
+}
+.brand b{letter-spacing:.3px}
+
+.tabs{
+  display:flex;gap:8px;flex-wrap:wrap;margin-left:auto;
+  overflow:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.tabs button{
+  background:#120f20;color:#dfe2ff;border:1px solid #262342;border-radius:10px;
+  padding:6px 12px;cursor:pointer;flex:0 0 auto;
+}
+.tabs button.active{
+  background:linear-gradient(180deg, rgba(255,91,217,.22), rgba(0,245,255,.18));
+  border-color:#3c2f72;box-shadow:0 0 0 2px var(--ring), 0 4px 18px rgba(0,245,255,.18)
+}
+
+/* === LAYOUT ========================================================= */
+.wrap{
+  display:grid;grid-template-columns:300px 1fr;gap:10px;
+  padding:8px;max-width:1500px;margin:0 auto
+}
+.panel{
+  background:
+    linear-gradient(180deg, rgba(255,91,217,.06), rgba(0,245,255,.05)),
+    linear-gradient(180deg,#141027 0%, #0f0a1f 100%);
+  border:1px solid var(--panel-border);border-radius:14px;padding:10px;
+  box-shadow:var(--panel-glow)
+}
+.panel h2,.panel h3{position:relative}
+.panel h2{margin:.2rem 0 8px;font-size:16px;letter-spacing:.2px;color:var(--text)}
+.panel h3{margin:16px 0 8px;font-size:14px;color:var(--text-dim)}
+.panel h2::after,.panel h3::after{
+  content:"";position:absolute;left:0;bottom:-6px;width:64px;height:2px;
+  background:linear-gradient(90deg,var(--grad-2),var(--grad-3));border-radius:999px;opacity:.8
+}
+
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row > *{flex:1 1 120px}
+.grid{display:grid;gap:10px}
+.stack{display:grid;gap:10px}
+.flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.tiny{font-size:12px;color:var(--text-dim)}
+.toolnote{font-size:12px;color:#a9b1bd}
+.palette{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+
+/* === INPUTS & CONTROLS ============================================= */
+input[type="text"], input[type="number"], input[type="file"]{
+  width:100%;background:#100a22;border:1px solid #2a2352;border-radius:10px;
+  color:var(--text);padding:8px 10px;outline:none
+}
+select{
+  width:100%;background:#100a22;border:1px solid #2a2352;border-radius:10px;
+  color:var(--text);padding:8px 10px;outline:none
+}
+input:focus, select:focus{border-color:#5a3be6;box-shadow:0 0 0 2px rgba(90,59,230,.35), 0 0 0 6px rgba(0,245,255,.08)}
+
+.button-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:#15102b;border:1px solid #322a62;color:#e9e9ff;border-radius:10px;padding:8px 12px;cursor:pointer}
+.btn:focus{outline:none;box-shadow:0 0 0 2px var(--ring)}
+.btn.primary{
+  background:linear-gradient(90deg, var(--grad-2), var(--grad-3), var(--grad-4));
+  background-size:200% 200%;border-color:#3e2f75;animation:btnShift 6s ease-in-out infinite;
+  color: black;
+}
+@keyframes btnShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.btn.ghost{background:rgba(255,255,255,.02);border-color:#2f2758}
+
+.kbd{font:600 11px/1 ui-monospace, Menlo; padding:4px 6px; border:1px solid #2a3752;border-radius:6px;background:#0e1524;color:#c7d4eb}
+.range{appearance:none;width:100%;height:6px;border-radius:999px;background:#14102a;outline:none}
+.range::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, var(--acc2), var(--acc));border:2px solid #0b0a1a}
+
+/* === SWATCHES ======================================================= */
+/* Swatches with internal stacked labels (used by JS) */
+.swatch{position:relative;width:140px;height:72px;border-radius:8px;border:1px solid #2a2352;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05), 0 6px 18px rgba(0,0,0,.25);transition:transform .15s ease, box-shadow .15s ease}
+.swatch.big{width:160px;height:80px}
+.swatch.mini{width:110px;height:52px}
+.swatch:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,91,217,.20), inset 0 0 0 1px rgba(255,255,255,.06)}
+.swatch.base{outline:3px solid var(--base-highlight);box-shadow:0 0 0 2px rgba(255,248,107,.35), 0 14px 34px rgba(255,248,107,.2)}
+.sw-row{display:flex;gap:8px;flex-wrap:wrap}
+
+.slabel{
+  position:absolute;left:6px;right:6px;bottom:6px;
+  display:flex;flex-direction:column;gap:2px;
+  font-family:ui-monospace, Menlo, Consolas, monospace;
+  text-shadow:0 1px 8px rgba(0,0,0,.55), 0 0 18px rgba(0,245,255,.35);
+  cursor:pointer
+}
+.shex{font-size:11px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srgb{font-size:9px;line-height:1.1;opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Copy feedback used by JS (.slabel.copied) */
+.slabel.copied::after{
+  content:"✔ Copied";
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-weight:700;color:white;
+  background:linear-gradient(90deg, rgba(255,91,217,.9), rgba(0,245,255,.9));
+  padding:6px 10px;border-radius:999px;pointer-events:none;animation:fadeOut .8s ease forwards
+}
+@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}
+
+/* === CHIPS / WELLS / HERO ========================================== */
+.chip{background:#0f1522;border:1px solid var(--panel-border);border-radius:12px;padding:8px;display:grid;gap:8px}
+.chip-top{display:flex;gap:8px;align-items:flex-start}
+
+.well{padding:10px;border-radius:12px;background:linear-gradient(180deg, rgba(255,91,217,.05), rgba(0,245,255,.04));border:1px solid var(--panel-border)}
+.hero{padding:10px 12px;border-radius:12px;background:linear-gradient(180deg, rgba(106,0,244,.18), rgba(10,6,18,.4));border:1px solid #382b72}
+.footer{opacity:.8;text-align:center;padding:20px}
+
+/* === CANVAS/VIEWERS (Studio/Zoom) ================================== */
+.container{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.viewer{
+  position:relative;overflow:hidden;height:420px;
+  cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="2" fill="none"/><line x1="14" y1="14" x2="22" y2="22" stroke="white" stroke-width="2"/></svg>') 9 9, zoom-in;
+}
+.zoom{height:420px;background-repeat:no-repeat;background-position:center;background-size:cover;cursor:zoom-in}
+
+/* === PRESETS GRID =================================================== */
+.presets-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.presets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.preset-card{background:#0f1522;border:1px solid var(--panel-border);border-radius:12px;padding:10px;display:grid;gap:8px;cursor:pointer}
+.preset-col{display:flex;flex-direction:column;gap:8px}
+.preset-title{font-size:13px;color:#dfe2ff}
+.preset-meta{font-size:11px;color:#94a3b8}
+
+/* === RESPONSIVE BREAKPOINTS ======================================== */
+@media (max-width: 1200px){
+  .wrap{grid-template-columns:260px 1fr}
+}
+@media (max-width: 980px){
+  .wrap{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .container{grid-template-columns:1fr}
+  header{flex-wrap:wrap;gap:8px}
+}
+@media (max-width: 720px){
+  body{font-size: clamp(14px, 2.6vw, 15px);}
+  .tabs{gap:6px}
+  .tabs button{padding:6px 10px}
+  .panel{padding:8px}
+  .viewer,.zoom{height:340px}
+  .swatch{width:100%;height:64px}
+}
+@media (max-width: 480px){
+  .tabs{justify-content:center}
+  .viewer,.zoom{height:280px}
+  .preset-grid{grid-template-columns:1fr}
+  .swatch.mini{height:56px}
+  .row > *{flex:1 1 100%}
+}
+
+/* === SCROLLBARS (WebKit/Chromium) ================================== */
+::-webkit-scrollbar{height:10px;width:10px}
+::-webkit-scrollbar-track{background:#0d0a19}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--grad-2),var(--grad-3));border-radius:999px}
+
+/* === STUDIO: Mobile polish & responsive canvas ===================== */
+/* Make the editor canvas scale to the viewport while preserving aspect ratio.
+The canvas drawing buffer stays 960x600; this only changes the display size. */
+#studioCanvas {
+  width: 100%;
+  height: auto; /* keeps the 960x600 aspect */
+  max-width: 100%;
+  display: block;
+  background: #0b0a1a;
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+} /* Status tag styling (so it doesn't look raw on mobile) */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #120f20;
+  border: 1px solid #262342;
+  color: #cfd3ff;
+  white-space: nowrap;
+} /* Make the Studio toolbar comfortable and scrollable horizontally on small screens */
+#studioPreview .button-row {
+  align-items: center;
+  row-gap: 8px;
+}
+@media (max-width: 820px) {
+  /* Single-line, swipeable toolbar */
+  #studioPreview .button-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    gap: 8px;
+  }
+  #studioPreview .button-row > * {
+    flex: 0 0 auto; /* prevent shrinking of buttons/inputs */
+  } /* Keep the canvas prominent but contained */
+  #studioCanvas {
+    max-height: 62vh; /* so controls remain visible */
+  }
+} /* Tighten spacing a bit below typical phone widths */
+@media (max-width: 600px) {
+  #studioPreview .button-row {
+    gap: 6px;
+  }
+  .btn {
+    padding: 7px 10px;
+    border-radius: 9px;
+  }
+  input[type="text"],
+  input[type="number"],
+  input[type="file"],
+  select {
+    padding: 8px 9px;
+    border-radius: 9px;
+  } /* Slightly smaller sliders for narrow screens */
+  .range {
+    height: 5px;
+  }
+} /* Very small phones */
+@media (max-width: 420px) {
+  #studioCanvas {
+    max-height: 58vh;
+  }
+  .tiny {
+    font-size: 11px;
+  }
+} /* Nicer native file input button to match your UI */
+input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 7px 10px;
+  border: 1px solid #322a62;
+  border-radius: 10px;
+  background: #15102b;
+  color: #e9e9ff;
+  cursor: pointer;
+}
+input[type="file"]::file-selector-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+} /* When the toolbar wraps (tablets), keep labels tight */
+#studioPreview label.tiny {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+} /* --- STUDIO toolbar: un-break on mobile --- */
+@media (max-width: 820px) {
+  /* Let the toolbar wrap to a second line; keep it above the canvas */
+  #studioPreview .button-row {
+    flex-wrap: wrap !important;
+    align-items: stretch;
+    position: relative;
+    z-index: 1;
+  } /* Put the file picker on its own full row so the rest can breathe */
+  #studioFile {
+    flex: 1 1 100%;
+  } /* Only inside the toolbar: stop global 100% width from hogging the row */
+  #studioPreview .button-row input[type="file"],
+  #studioPreview .button-row input[type="text"],
+  #studioPreview .button-row input[type="number"],
+  #studioPreview .button-row select {
+    width: auto !important;
+    max-width: 48vw; /* keeps file/hex/tol inputs compact */
+    flex: 0 0 auto;
+  } /* Keep buttons from collapsing into a tiny ribbon */
+  #studioPreview .button-row .btn {
+    flex: 0 0 auto;
+    min-height: 36px;
+  }
+  #studioPreview .button-row label.tiny {
+    white-space: nowrap;
+  }
+} /* Ensure the canvas never overlays the toolbar visually */
+#studioCanvas {
+  display: block;
+}
+
+/* --- FIX: stop toolbar blowout on mobile --- */
+
+/* Always allow toolbar children to shrink */
+#studioPreview .button-row { flex-wrap: wrap; align-items: center; gap: 8px; }
+#studioPreview .button-row > * { flex: 0 1 auto; min-width: 0; }
+
+/* Long status text should truncate, not push width */
+#statusDim { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Phones / small tablets */
+@media (max-width: 820px){
+  /* File input on its own row, width obeys container */
+  #studioFile{ flex: 1 1 100%; max-width: 100%; min-width: 0; }
+
+  /* The two grouped label blocks should span a full row and wrap internally */
+  #studioPreview .button-row label.tiny{
+    flex: 1 1 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    white-space: normal !important; /* override earlier nowrap */
+  }
+
+  /* Keep the small inputs compact so they never force width */
+  #ctHex { width: 8ch !important; }
+  #ctTol { width: 6ch !important; }
+
+  /* Feather slider shouldn’t sprawl */
+  #studioPreview .button-row input[type="range"]{
+    flex: 1 1 220px;
+    min-width: 160px;
+    max-width: 100%;
+  }
+
+  /* Keep the canvas contained */
+  #studioCanvas{ width: 100%; height: auto; max-height: 62vh; }
+}
+
+/* ********************* EXPERIMENTING ***************************** */
+/* Stops white flashes when overscrolling / fling-scrolling */
+html { background: #0a0612; }             /* match your body’s base */
+html, body { overscroll-behavior: none; }  /* prevents scroll chaining white gaps */
+
+/* Base body has only a solid color; gradients move on a separate layer */
+body { background-color: #0a0612; }
+
+/* Composited, fixed background layer */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(255,91,217,.12), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(0,245,255,.10), transparent 60%),
+    linear-gradient(180deg,#0a0612 0%, #0b0a1a 50%, #0a0612 100%);
+  will-change: transform, opacity;   /* promote to its own layer */
+  transform: translate3d(0,0,0) scale(1.05);
+  animation: euphoricFlowGPU 18s ease-in-out infinite;
+}
+
+/* Animate transform (cheap) instead of background-position (expensive) */
+@keyframes euphoricFlowGPU{
+  0%   { transform: translate3d(0%,   0%, 0) scale(1.05); }
+  50%  { transform: translate3d(8%,  12%, 0) scale(1.05); }
+  100% { transform: translate3d(0%,   0%, 0) scale(1.05); }
+}
+
+/* Be nice to folks (and to performance) */
+@media (prefers-reduced-motion: reduce){
+  body::before { animation: none; }
+}
+
+header { will-change: transform; transform: translateZ(0); }
+
+/* ===== Analyze: responsive toolbar + grid + canvas */
+#tab-analyze .ana-toolbar { flex-wrap: wrap; align-items: center; gap: 8px; }
+#tab-analyze .ana-toolbar input[type="file"]{ flex: 1 1 260px; min-width: 60%; }
+#tab-analyze .ana-toolbar .btn{ flex: 0 0 auto; }
+#tab-analyze .ana-toolbar .tag{ flex: 0 0 auto; }
+
+#tab-analyze .ana-grid{
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(0,0.8fr);
+  gap: 10px;
+}
+@media (max-width: 980px){
+  #tab-analyze .ana-grid{ grid-template-columns: 1fr; }
+}
+
+#tab-analyze canvas{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  border:1px solid var(--panel-border);
+  border-radius:12px;
+  background:#0b0a1a;
+}
+
+/* ===== Palette Extractor: assume it has a canvas + controls row */
+#tab-palette .row{ flex-wrap: wrap; gap: 8px; }
+#tab-palette .row > *{ min-width: 0; flex: 0 1 auto; }  /* prevent blowout */
+
+#tab-palette input[type="file"]{ flex:1 1 260px; min-width: 60%; }
+#tab-palette .btn{ flex:0 0 auto; }
+
+#tab-palette canvas{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  max-height:62vh;               /* keep room for controls on phones */
+  border:1px solid var(--panel-border);
+  border-radius:12px;
+  background:#0b0a1a;
+}
+
+/* If your palette tool has a two-column body, this class helps */
+#tab-palette .pal-grid{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap:10px;
+}
+@media (max-width: 980px){
+  #tab-palette .pal-grid{ grid-template-columns:1fr; }
+}
+
+/* ===== Frames: mobile-friendly layout ===== */
+#tab-frames .two-col{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap:10px;
+}
+@media (max-width: 980px){
+  #tab-frames .two-col{ grid-template-columns:1fr; }
+}
+
+/* Let rows actually wrap and shrink children even if inline styles set min-width */
+#tab-frames .row{ flex-wrap: wrap; gap: 8px; }
+#tab-frames .row > *{ flex: 1 1 120px; min-width: 0 !important; }
+
+/* File pickers take a full line when needed */
+#tab-frames .chip{ flex:1 1 260px; }
+#tab-frames input[type="file"]{ width:100%; }
+
+/* Numeric inputs don't force overflow */
+#tab-frames input[type="number"]{ width:100%; min-width: 0; }
+
+/* Range slider is flexible but never tiny */
+#tab-frames input[type="range"]{ flex: 1 1 220px; min-width: 140px; max-width: 100%; }
+
+/* Canvas is fully responsive and never eats the whole screen on phones */
+#tab-frames canvas{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  max-height:62vh;
+  border:1px solid var(--panel-border);
+  border-radius:12px;
+  background:#0b0a1a;
+}
+
+/* ==== Spectral Intro (load animation) ============================= */
+
+/* Start with content slightly lowered and transparent */
+.intro-start header,
+.intro-start .wrap,
+.intro-start footer{
+  opacity:0;
+  transform: translateY(10px) scale(.985);
+}
+
+/* Rainbow curtain overlay (auto-injected via JS if not present) */
+#spectralCurtain{
+  position:fixed; inset:0; z-index:9999; pointer-events:none;
+  /* rich spectral blend, looks great on dark */
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    #ff4d6d, #ff9f1c, #ffe156, #22ff9a,
+    #00c3ff, #7b61ff, #ff5bd9, #ff4d6d
+  );
+  filter: saturate(120%);
+  opacity:0;                 /* becomes visible during play */
+  transform: scale(1.05);    /* subtle parallax size */
+  clip-path: inset(0 100% 0 0); /* fully clipped (hidden) */
+  transition:
+    clip-path 600ms cubic-bezier(.2,.8,.2,1),
+    opacity 600ms ease;
+}
+
+/* Play phase: reveal curtain, then content anims kick in */
+html.intro-play #spectralCurtain{
+  opacity:.85;
+  clip-path: inset(0 0 0 0);
+}
+
+/* Done phase: fade curtain away */
+html.intro-done #spectralCurtain{
+  opacity:0;
+  transition: opacity 480ms ease;
+}
+
+/* Content rise-in (header, main, footer) */
+@keyframes riseIn{
+  from{ opacity:0; transform: translateY(10px) scale(.985); }
+  to  { opacity:1; transform: none; }
+}
+
+html.intro-play header{
+  animation: riseIn 600ms cubic-bezier(.2,.8,.2,1) both 80ms;
+}
+html.intro-play .wrap{
+  animation: riseIn 650ms cubic-bezier(.2,.8,.2,1) both 140ms;
+}
+html.intro-play footer{
+  animation: riseIn 680ms cubic-bezier(.2,.8,.2,1) both 220ms;
+}
+
+/* Animate your existing h2/h3 gradient underlines drawing in */
+.panel h2::after,
+.panel h3::after{
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 800ms ease 1400ms;
+}
+html.intro-play .panel h2::after,
+html.intro-play .panel h3::after{
+  transform: scaleX(1);
+}
+
+/* Quick “shine” sweep over tabs */
+.tabs button{ position:relative; overflow:hidden; }
+.tabs button::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(120deg,
+    transparent 25%, rgba(255,255,255,.45) 50%, transparent 75%);
+  transform: translateX(-120%);
+}
+@keyframes shine{ to{ transform: translateX(120%); } }
+html.intro-play .tabs button::after{ animation: shine 1200ms ease both 1000ms; }
+html.intro-play .tabs button:nth-child(odd)::after{ animation-delay: 1000ms; }
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #spectralCurtain{ display:none !important; }
+  .intro-start header,
+  .intro-start .wrap,
+  .intro-start footer{
+    opacity:1 !important; transform:none !important;
+  }
+}
+
+/* =========================
+   FIXES: Palette / Analyze / Frames
+   ========================= */
+
+/* --- PALETTE --- */
+/* Desktop: stop the “short & fat” look; give it real height. */
+@media (min-width: 981px){
+  #tab-palette .row{ align-items: flex-start; }
+  #tab-palette canvas{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;   /* keep a proper shape */
+    min-height: 420px;      /* tall enough to see */
+    max-height: none;       /* allow it to breathe */
+  }
+}
+/* Mobile: make it bigger (it was tiny) but still contained */
+@media (max-width: 980px){
+  #tab-palette canvas{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    min-height: 46vh;       /* bigger than before */
+    max-height: 70vh;       /* but don’t take the whole screen */
+  }
+}
+
+/* --- ANALYZE --- */
+/* Desktop only: give canvas more column width and a sane ratio/height.
+   (Mobile is perfect already, so we leave it alone there.) */
+@media (min-width: 981px){
+  #tab-analyze .row{
+    display: grid;
+    grid-template-columns: minmax(0,1.35fr) minmax(0,0.65fr); /* canvas ~2/3 */
+    gap: 10px;
+    align-items: start;
+  }
+  #tab-analyze canvas{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    min-height: 360px;    /* no more “short & skinny” */
+  }
+}
+
+/* --- FRAMES --- */
+/* Desktop: remove the cap that made it look short & fat */
+@media (min-width: 981px){
+  #tab-frames canvas{
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+    /* give the canvas a real shape */
+  #anaCanvas{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    min-height: 420px;          /* stop the pancake look */
+  }
+  /* make the right column predictable so canvas keeps width */
+  #tab-analyze .row > .stack{
+    flex: 0 0 340px;
+  }
+  #tab-analyze .row{
+    align-items: flex-start;
+  }
+}
+
+/* Mobile: keep a sensible cap so controls are still reachable */
+@media (max-width: 980px){
+  #tab-frames canvas{
+    width: 100%;
+    height: auto;
+    max-height: 62vh;
+  }
+  
+  #palCanvas{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    min-height: 52vh;            /* bigger and readable */
+    max-height: 72vh;
+  }
+}
+
+/* ANALYZE (desktop) — height-driven so it can't be short & fat */
+@media (min-width: 981px){
+  /* keep the controls narrow; canvas gets the rest */
+  #tab-analyze .ana-grid{
+    grid-template-columns: 1fr 340px;
+    align-items: start;
+  }
+
+  #tab-analyze canvas{
+    height: min(72vh, 720px);  /* height drives width */
+    width: auto;               /* calc from aspect ratio */
+    max-width: 100%;           /* never overflow column */
+    aspect-ratio: 16 / 9;      /* correct shape */
+    display: block;
+    margin: 0 auto;            /* center horizontally */
+  }
+}
+
+/* ANALYZE (desktop) — height-driven so it can't be short & fat */
+@media (min-width: 981px){
+  #tab-analyze .ana-grid{ grid-template-columns: 1fr 340px; align-items: start; }
+  #tab-analyze canvas{
+    height: min(72vh, 720px);
+    width: auto;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+    margin: 0 auto;
+  }
+}

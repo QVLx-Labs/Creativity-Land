@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="intro-start">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Creativity Land — Studio, Color & Palettes</title>
+  <meta name="theme-color" content="#3b82f6">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./creativity.png">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+  
+  <meta name="description" content="Creativity.land — a complete browser art studio: photo editing, color theory, palettes, conversions, and more. 100% client-side.">
+  </head>
+  <body>
+  <header>
+    <div class="brand">
+      <!-- PNG logo instead of inline SVG -->
+      <img class="logo" src="./creativity.png" width="34" height="34" alt="Creativity.land logo" style="border-radius:10px;border:1px solid #1f2839;box-shadow:0 0 0 1px #0d121d inset;">
+      <div>
+        <b>Creativity Land</b>
+        <div class="tiny">Copyright 2025 QVLX LLC • <i>Create beauty.</i></div>
+      </div>
+    </div>
+  <nav class="tabs" id="tabs" aria-label="Primary">
+    <button data-tab="studio" class="active" aria-controls="tab-studio" aria-selected="true">Studio</button>
+    <button data-tab="color" aria-controls="tab-color" aria-selected="false">Color Lab</button>
+    <button data-tab="convert" aria-controls="tab-convert" aria-selected="false">Convert</button>
+    <button data-tab="palette" aria-controls="tab-palette" aria-selected="false">Palette</button>
+    <button data-tab="presets" aria-controls="tab-presets" aria-selected="false">Presets</button>
+    <button data-tab="analyze" aria-controls="tab-analyze" aria-selected="false">Analyze</button>
+    <button data-tab="frames" aria-controls="tab-frames" aria-selected="false">Frames</button>
+    <button data-tab="zoom" aria-controls="tab-zoom" aria-selected="false">Zoom</button>
+    <button data-tab="convertimg" aria-controls="tab-convertimg" aria-selected="false">Convert Images</button>
+    <button data-tab="gradient" aria-controls="tab-gradient" aria-selected="false">Gradients</button>
+    <button data-tab="about" aria-controls="tab-about" aria-selected="false">About</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <aside class="panel" aria-label="Quick tools">
+    <h2>Quick Tools</h2>
+    <div id="quickMount"></div>
+  </aside>
+
+  <main class="panel">
+    <section id="tab-studio" role="tabpanel">
+      <div class="hero">
+        <h2>Studio</h2>
+        <div class="toolnote">Upload an image and edit with non-destructive adjustments and filters.</div>
+      </div>
+      <div id="studioMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-color" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Color Lab</h2>
+        <div class="toolnote">Harmonies, tints/shades, contrast ratios, color wheel, and preview text overlays.</div>
+      </div>
+      <div id="colorMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-convert" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Convert</h2>
+        <div class="toolnote">HEX ⇄ RGB ⇄ HSL with robust parsing.</div>
+      </div>
+      <div id="convertMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-palette" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Palette Extractor</h2>
+        <div class="toolnote">Extract dominant colors from an image (k-means), build palettes, and copy values.</div>
+      </div>
+      <div id="paletteMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-presets" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Preset Palettes</h2>
+        <div class="toolnote">A vast library of ready-made palettes (Coolors-style). Click any to apply to Color Lab & Quick Tools.</div>
+      </div>
+      <div id="presetsMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-analyze" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Analyze Image</h2>
+        <div class="toolnote">Counts colors, estimates entropy, transparency %, file info, and dimensions.</div>
+      </div>
+      <div id="analyzeMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-frames" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Frames & Transparency</h2>
+        <div class="toolnote">Overlay a frame, recolor near-white areas, or make a specific RGB transparent.</div>
+      </div>
+      <div id="framesMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-zoom" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Zoom Loupe</h2>
+        <div class="toolnote">Click inside the viewer to magnify the area in the right pane.</div>
+      </div>
+      <div id="zoomMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-convertimg" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Convert Images</h2>
+        <div class="toolnote">PNG/JPG/WebP (client-side). SVG export wraps the raster.</div>
+      </div>
+      <div id="convertImgMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-gradient" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>Gradient Studio</h2>
+        <div class="toolnote">Two-color gradients with positions, angle, type + presets.</div>
+      </div>
+      <div id="gradientMount" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-about" class="hidden" role="tabpanel" aria-hidden="true">
+      <div class="hero">
+        <h2>About</h2>
+        <div class="toolnote">Creativity.land is a self-contained studio: color science, palettes, and editing — in one page.</div>
+      </div>
+      <p style="margin-top:12px">All processing is client-side (no uploads). Built modularly to extend: layers, vector shapes, text, exports.</p>
+      <p class="tiny">© 2025 Creativity.land</p>
+    </section>
+  </main>
+</div>
+
+<footer class="footer tiny">Protip: right-click a palette chip in Color Lab to set that color as the base.</footer>
+
+<noscript>
+  <div class="well" style="margin:12px">This app requires JavaScript. Please enable it to use the studio.</div>
+</noscript>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
